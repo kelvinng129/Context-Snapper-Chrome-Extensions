@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "Context Snapper Simple",
+  "version": "3.0",
+  "description": "Auto-formats screenshot with source URL.",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "clipboardWrite" 
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  }
+}
