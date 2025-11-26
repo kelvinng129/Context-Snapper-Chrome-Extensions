@@ -2,6 +2,9 @@ Context Snapper
 
 Context Snapper is a lightweight Google Chrome Extension that allows you to capture screenshots 
 of your current browser tab while automatically grabbing the Page Title and URL. 
+<img width="865" height="700" alt="Example" src="https://github.com/user-attachments/assets/495d79a7-25ba-4a3f-8d32-3ec3a7a20d1c" />
+
+Reference:https://youtu.be/E8gmARGvPlI?si=x23Y5ZFOFK7sYvdx
 
 Features
 
