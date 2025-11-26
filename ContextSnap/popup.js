@@ -8,19 +8,24 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnDownload = document.getElementById('download-btn');
   const msgEl = document.getElementById('msg');
 
-
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     const activeTab = tabs[0];
-    titleEl.textContent = activeTab.title;
+    titleInput.value = activeTab.title;
     urlEl.textContent = activeTab.url;
     urlEl.href = activeTab.url;
-
     chrome.tabs.captureVisibleTab(null, { format: 'png' }, (dataUrl) => {
       screenshotImg.src = dataUrl;
     });
   });
 
-  copyBtn.addEventListener('click', async () => {
+  function showMessage(text){
+    msgEl.textContent = text;
+    msgEl.style.opacity = '1';
+    setTimeout(() => {
+      msgEl.style.opacity = '0';},2000);
+  }
+  
+  btnCopyAll.addEventListener('click', async () => {
     try {
       const imgSrc = screenshotImg.src;
       const title = titleEl.textContent;
@@ -34,30 +39,54 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const blobHtml = new Blob([htmlContent], { type: 'text/html' });
       const blobText = new Blob([url], { type: 'text/plain' });
-      const data = [new ClipboardItem({
-        'text/html': blobHtml,
-        'text/plain': blobText
-      })];
-
-      await navigator.clipboard.write(data);
       
-      msgEl.style.opacity = '1';
-      copyBtn.textContent = "✅ Copied!";
-      setTimeout(() => {
-        msgEl.style.opacity = '0';
-        copyBtn.textContent = "Copy Image & Link";
-      }, 2000);
-
+      await navigator.clipboard.write([
+        new ClipboardItem({
+          'text/html': blobHtml,
+          'text/plain': blobText
+        })
+      ]);
+      showMessage("✅ Copied Image & Link!");
     } catch (err) {
-      console.error('Copy failed', err);
-      alert("Copy failed. Please try again.");
+      console.error(err);
+      showMessage("❌ Failed to copy");
     }
   });
 
-  downloadBtn.addEventListener('click', () => {
+  btnCopyImg.addEventListener('click', async () => {
+    try {
+      const response = await fetch(screenshotImg.src);
+      const blob = await response.blob();
+      
+      await navigator.clipboard.write([
+        new ClipboardItem({ 'image/png': blob })
+      ]);
+      showMessage("Image Copied!");
+    } catch (err) {
+      console.error(err);
+      showMessage("❌ Error copying image.");
+    }
+  });
+
+  btnCopyLink.addEventListener('click', async () => {
+    try {
+      const url = urlEl.href;
+      await navigator.clipboard.writeText(url);
+      showMessage("Link Copied!");
+    } catch (err) {
+      showMessage("❌ Error");
+    }
+  });
+
+  btnDownload.addEventListener('click', () => {
     const link = document.createElement('a');
     link.href = screenshotImg.src;
-    link.download = 'screenshot.png';
+    const filename = titleInput.value.replace(/[^a-z0-9]/gi, '_').substring(0, 20);
+    link.download = `snap_${filename}.png`;
     link.click();
   });
 });
+  
+  
+
+                      
