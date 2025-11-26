@@ -6,17 +6,17 @@ of your current browser tab while automatically grabbing the Page Title and URL.
 
 Reference:https://youtu.be/E8gmARGvPlI?si=x23Y5ZFOFK7sYvdx
 
-Features
+Features:
 
 Instant Screenshot: Captures the visible part of your current tab immediately.
-Context Capture:*Automatically fetches the Page Title and URL.
+Context Capture:*Automatically* fetches the Page Title and URL.
 Smart Copying:
 1.  Copy All: Copies the Image, Title, and clickable Link to your clipboard (great for pasting into Slack, Teams, or Notion).
 2.  Copy Link: Copies just the URL.
 3.  Copy Image:Copies just the screenshot.
 4.  Download: Save the screenshot as a `.png` file locally.
 
-Installation
+Installation:
 
 From GitHub 
 Since this project is open source, you can install it manually before it hits the Chrome Web Store:
@@ -28,20 +28,20 @@ Since this project is open source, you can install it manually before it hits th
 5.  Select the folder where you downloaded this code.
 6.  The extension icon should appear in your browser bar!
 
-From Chrome Web Store
+From Chrome Web Store:
 
 Not , Yet 
 
-Project Structure
+Project Structure:
 
 1.  `manifest.json`: The configuration file required by Chrome.
 2.  `popup.html`: The user interface (buttons, image preview).
 3.  `styles.css`: Styling for the popup window.
 4.   `popup.js`: Logic for capturing the screen and handling clipboard actions.
 
-Technologies Used
+Technologies Used:
 
-1.   HTML5
+1.  HTML5
 2.  CSS3 (Flexbox/Grid)
 3.  Vanilla JavaScript
 4.  Chrome Extension API (`activeTab`, `scripting`)
