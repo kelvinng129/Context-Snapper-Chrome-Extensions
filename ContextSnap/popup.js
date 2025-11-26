@@ -28,25 +28,36 @@ document.addEventListener('DOMContentLoaded', () => {
   btnCopyAll.addEventListener('click', async () => {
     try {
       const imgSrc = screenshotImg.src;
-      const title = titleEl.textContent;
+      const title = titleInput.value;
       const url = urlEl.href;
-
-      const htmlContent = `
-        <p><img src="${imgSrc}" style="max-width: 100%; border: 1px solid #ccc;" /></p>
+      const wrapper = document.createElement('div');
+      wrapper.style.position = 'fixed';
+      wrapper.style.left = '-9999px';
+      wrapper.style.top = '0';
+      wrapper.contentEditable = 'true';
+      wrapper.innerHTML = `
+        <p><img src="${imgSrc}" style="max-width: 600px;" /></p>
         <p><strong>${title}</strong></p>
         <p><a href="${url}">${url}</a></p>
       `;
-
-      const blobHtml = new Blob([htmlContent], { type: 'text/html' });
-      const blobText = new Blob([url], { type: 'text/plain' });
       
-      await navigator.clipboard.write([
-        new ClipboardItem({
-          'text/html': blobHtml,
-          'text/plain': blobText
-        })
-      ]);
-      showMessage("✅ Copied Image & Link!");
+      document.body.appendChild(wrapper);
+
+      const range = document.createRange();
+      range.selectNodeContents(wrapper);
+      const selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+
+      const successful = document.execCommand('copy');
+      document.body.removeChild(wrapper);
+      selection.removeAllRanges();
+
+      if (successful) {
+        showMessage("✅ Copied Image & Link!");
+      } else {
+        throw new Error("execCommand returned false");
+      }
     } catch (err) {
       console.error(err);
       showMessage("❌ Failed to copy");
@@ -86,7 +97,3 @@ document.addEventListener('DOMContentLoaded', () => {
     link.click();
   });
 });
-  
-  
-
-                      
