@@ -11,9 +11,9 @@ Features:
 Instant Screenshot: Captures the visible part of your current tab immediately.
 Context Capture:*Automatically* fetches the Page Title and URL.
 Smart Copying:
-1.  Copy All: Copies the Image, Title, and clickable Link to your clipboard (great for pasting into Slack, Teams, or Notion).
+1.  Copy All: Copies the Image, Title, and clickable Link to your clipboard (great for pasting into Word, Teams, or Notion).
 2.  Copy Link: Copies just the URL.
-3.  Copy Image:Copies just the screenshot.
+3.  Copy Image:Copies just the screenshot.(Can paste it into applications like WhatsApp, it doesn't need to be saved to your device.)
 4.  Download: Save the screenshot as a `.png` file locally.
 
 Installation:
